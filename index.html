@@ -14,6 +14,34 @@
     </div>
     <script src="https://unpkg.com/vue"></script>
     <script>
+
+    const tg = window.Telegram.WebApp.ready();
+    const userId = Telegram.WebApp.initDataUnsafe.userId;
+    console.log(userId)
+
+    //$.ajax({ url: '/get-user-id', method: 'POST', data: { "user_id": 123456789, "name": "tester" }});
+
+    fetch('/get-user-id', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"user_id": 12345})
+    })
+    .then(response => {
+    if (response.status === 200) {
+        return response.json();
+    } else {
+        throw new Error('Ошибка сервера');
+    }
+    })
+    .then(data => {
+    console.log(data);
+    })
+    .catch(error => {
+    console.error('Error:', error);
+    });
+
     Vue.createApp({
       data() {
         return {firstname:'Tom', lastname:'Smith'}
